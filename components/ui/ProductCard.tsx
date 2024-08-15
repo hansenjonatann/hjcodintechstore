@@ -12,7 +12,7 @@ export default function ProductCard({ api }: ProductCardProps) {
       {api.map((item: any, index: number) => (
         <div
           key={index}
-          className="bg-black/90 w-[220px] rounded-lg py-2 lg:w-full"
+          className="bg-black/90 rounded-lg py-2 w-full"
         >
           <div className="w-full p-2 ">
             <img
