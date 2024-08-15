@@ -22,7 +22,7 @@ export default function ProductSection() {
     fetchProducts();
   }, []);
   return (
-    <div className="grid grid-cols-2 mt-4 mx-4 gap-4 lg:grid-cols-4 lg:gap-2 ">
+    <div className="grid grid-cols-1 mt-4 mx-4 gap-4 lg:grid-cols-4 lg:gap-2 ">
       <ProductCard api={products} />
     </div>
   );
