@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     "HJ Codin Tech Store adalah Toko Online yang menyediakan berbagai templates , layanan , dan produk yang dijual dan dibuat oleh Tim HJ Codin Tech",
 
   creator: "HJ Codin Tech Team",
+  icons: [{ rel: "icon", url: "/logo.png" }],
 };
 
 export default function RootLayout({
@@ -23,7 +24,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <link rel="icon" href="/icon.png" sizes="any" />
       <body className={`${poppins.className} `}>
         <Header />
         {children}

@@ -5,16 +5,18 @@ import ProductCard from "./ui/ProductCard";
 import axios from "axios";
 import SkeletonCard from "./ui/SkeletonCard";
 
-export default function ProductSection() {
+export default function AplikasiWebSection() {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const fetchProducts = async () => {
     try {
       setIsLoading(true);
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product`);
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/category/${process.env.NEXT_PUBLIC_APLIKASI_WEB_CATEGORY_ID}`
+      );
       if (res) {
         setIsLoading(false);
-        setProducts(res.data.data);
+        setProducts(res.data.data.products);
       }
     } catch (error) {
       setIsLoading(false);

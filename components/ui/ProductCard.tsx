@@ -1,24 +1,30 @@
-import { Eye, MessageCircle, ShoppingCart } from "lucide-react";
+"use client";
+import axios from "axios";
+import { Eye, ShoppingCart } from "lucide-react";
+import { useState } from "react";
+import ItemDetailModal from "./ItemDetailModal";
 import Image from "next/image";
-import Link from "next/link";
 
 interface ProductCardProps {
   api: any;
 }
 
 export default function ProductCard({ api }: ProductCardProps) {
+  const [detailModal, setDetailModal] = useState(false);
+
+  const openDetailModal = (id: string) => setDetailModal(true);
+  const closeDetailModal = () => setDetailModal(false);
   return (
     <>
       {api.map((item: any, index: number) => (
-        <div
-          key={index}
-          className="bg-black/90 rounded-lg py-2 w-full"
-        >
+        <div key={index} className="bg-black/90 rounded-lg py-2 w-full">
           <div className="w-full p-2 ">
-            <img
+            <Image
               src={item.image}
               alt={item.name}
-              className="rounded-lg oject-cover"
+              width={600}
+              height={600}
+              className="rounded-lg "
             />
           </div>
           <div className="mx-2 mt-4">
@@ -36,9 +42,18 @@ export default function ProductCard({ api }: ProductCardProps) {
               </p>
             </div>
             <div className="flex gap-x-2 justify-end">
-              <button className="bg-green-600 py-2 px-2 rounded-xl text-white">
+              <button
+                onClick={() => openDetailModal(item.id)}
+                className="bg-green-600 py-2 px-2 rounded-xl text-white"
+              >
                 <Eye />
               </button>
+
+              <ItemDetailModal
+                id={item.id}
+                isOpen={detailModal}
+                onClose={closeDetailModal}
+              />
               <button className="bg-blue-600 py-2 px-2 rounded-xl text-white">
                 <ShoppingCart />
               </button>
