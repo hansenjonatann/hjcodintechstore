@@ -1,9 +1,9 @@
 "use client";
-import axios from "axios";
 import { Eye, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import ItemDetailModal from "./ItemDetailModal";
 import Image from "next/image";
+import { useUser } from "@clerk/nextjs";
 
 interface ProductCardProps {
   api: any;
@@ -11,7 +11,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ api }: ProductCardProps) {
   const [detailModal, setDetailModal] = useState(false);
-
+  const { isSignedIn } = useUser();
   const openDetailModal = (id: string) => setDetailModal(true);
   const closeDetailModal = () => setDetailModal(false);
   return (
@@ -54,9 +54,11 @@ export default function ProductCard({ api }: ProductCardProps) {
                 isOpen={detailModal}
                 onClose={closeDetailModal}
               />
-              <button className="bg-blue-600 py-2 px-2 rounded-xl text-white">
-                <ShoppingCart />
-              </button>
+              {isSignedIn ? (
+                <button className="bg-blue-600 py-2 px-2 rounded-xl text-white">
+                  <ShoppingCart />
+                </button>
+              ) : null}
             </div>
           </div>
         </div>
