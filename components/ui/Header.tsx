@@ -8,6 +8,7 @@ import { useState } from "react";
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isSignedIn } = useUser();
+
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -61,7 +62,14 @@ export default function Header() {
                 ))}
               </ul>
             </div>
-            {isSignedIn && <ShoppingCart />}
+            {isSignedIn && (
+              <>
+                <Link href="/keranjang">
+                  {" "}
+                  <ShoppingCart />
+                </Link>
+              </>
+            )}
             <button className="flex md:hidden" onClick={handleToggle}>
               {!isOpen ? <Menu /> : <X />}
             </button>

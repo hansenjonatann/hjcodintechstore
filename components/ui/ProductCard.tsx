@@ -4,6 +4,9 @@ import { useState } from "react";
 import ItemDetailModal from "./ItemDetailModal";
 import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/lib/store/cartSlice";
+import toast from "react-hot-toast";
 
 interface ProductCardProps {
   api: any;
@@ -14,6 +17,12 @@ export default function ProductCard({ api }: ProductCardProps) {
   const { isSignedIn } = useUser();
   const openDetailModal = (id: string) => setDetailModal(true);
   const closeDetailModal = () => setDetailModal(false);
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (item: any) => {
+    dispatch(addToCart(item));
+    toast.success("Item berhasil ditambahkan!");
+  };
   return (
     <>
       {api.map((item: any, index: number) => (
@@ -36,7 +45,7 @@ export default function ProductCard({ api }: ProductCardProps) {
             <div className="mt-4 flex items-center justify-between">
               <p className="text-white text-lg">
                 Rp{" "}
-                <span className="font-bold text-green-600">
+                <span className="font-bold text-blue-500">
                   {item.price.toLocaleString("ID")}
                 </span>
               </p>
@@ -55,7 +64,10 @@ export default function ProductCard({ api }: ProductCardProps) {
                 onClose={closeDetailModal}
               />
               {isSignedIn ? (
-                <button className="bg-blue-600 py-2 px-2 rounded-xl text-white">
+                <button
+                  onClick={() => handleAddToCart(item)}
+                  className="bg-blue-600 py-2 px-2 rounded-xl text-white"
+                >
                   <ShoppingCart />
                 </button>
               ) : null}

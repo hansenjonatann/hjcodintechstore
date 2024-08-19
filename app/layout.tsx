@@ -3,6 +3,8 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/ui/Header";
 import { ClerkProvider } from "@clerk/nextjs";
+import ClientProvider from "@/hook/Provider";
+import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,9 +27,14 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={`${poppins.className} `}>{children}</body>
-      </html>
+      <ClientProvider>
+        <html lang="en">
+          <body className={`${poppins.className} `}>
+            <Toaster position="top-right" />
+            {children}
+          </body>
+        </html>
+      </ClientProvider>
     </ClerkProvider>
   );
 }
